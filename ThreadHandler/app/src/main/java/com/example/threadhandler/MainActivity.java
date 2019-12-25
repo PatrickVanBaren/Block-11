@@ -33,21 +33,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void newThread(final String text) {
         Log.d("!!!", "UI thread");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("!!!", "New thread" );
-                setText(text);
-            }
+        new Thread((Runnable) () -> {
+            Log.d("!!!", "New thread" );
+            setText(text);
         }).start();
     }
 
     private void setText(final String text) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mTextView.setText(text);
-            }
-        });
+        mHandler.post((Runnable) () -> mTextView.setText(text));
     }
 }
